@@ -1,7 +1,7 @@
 tags:
   - Subscriptions
 summary: Retrieve subscription details
-description: Fetch the details of a subscription by its unique ID.
+description: Fetch the details of a subscription by its unique ID, including the associated car ID.
 parameters:
   - name: abonnement_id
     in: path
@@ -24,6 +24,9 @@ responses:
             kunde_id:
               type: integer
               example: 123
+            bil_id:
+              type: integer
+              example: 5
             start_dato:
               type: string
               format: date

@@ -1,7 +1,7 @@
 tags:
   - Subscriptions
 summary: Create a new subscription
-description: Endpoint to create a new subscription for a customer.
+description: Endpoint to create a new subscription for a customer and associate it with a specific car.
 requestBody:
   required: true
   content:
@@ -13,6 +13,10 @@ requestBody:
             type: integer
             example: 123
             description: Customer ID (foreign key from customer database)
+          bil_id:
+            type: integer
+            example: 5
+            description: Car ID (foreign key from car database)
           start_dato:
             type: string
             format: date

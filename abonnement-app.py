@@ -25,14 +25,14 @@ DATABASE = "abonnement-database.db"
 def init_db():
     with sqlite3.connect(DATABASE) as conn:
         cursor = conn.cursor()
-
         # Drop tabellen, hvis den allerede eksisterer
-        ##cursor.execute("DROP TABLE IF EXISTS invoices")
+        ##cursor.execute("DROP TABLE IF EXISTS subscriptions")
         # Opret en tabel til fakturaer, hvis den ikke allerede findes
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS subscriptions (
             abonnement_id INTEGER PRIMARY KEY AUTOINCREMENT, -- Unique subscription ID
             kunde_id INTEGER NOT NULL,                      -- Foreign key for customer
+            bil_id INTEGER NOT NULL,                        -- Foreign key for car
             start_dato DATE NOT NULL,                       -- Subscription start date
             slut_dato DATE NOT NULL,                        -- Subscription end date
             månedlig_pris REAL NOT NULL,                    -- Monthly price
@@ -80,6 +80,7 @@ def create_subscription():
         data = request.get_json()
 
         kunde_id = data.get("kunde_id")
+        bil_id = data.get("bil_id")  # Ny parameter
         start_dato = data.get("start_dato")
         slut_dato = data.get("slut_dato")
         månedlig_pris = data.get("månedlig_pris")
@@ -88,16 +89,16 @@ def create_subscription():
         status = SubscriptionStatus.ACTIVE
 
         # Validate required fields
-        if not all([kunde_id, start_dato, slut_dato, månedlig_pris, kilometer_graense, kontrakt_periode]):
+        if not all([kunde_id, bil_id, start_dato, slut_dato, månedlig_pris, kilometer_graense, kontrakt_periode]):
             return jsonify({"error": "Missing required fields"}), 400
 
         # Insert into database
         with get_db_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("""
-            INSERT INTO subscriptions (kunde_id, start_dato, slut_dato, månedlig_pris, kilometer_graense, kontrakt_periode, status)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            """, (kunde_id, start_dato, slut_dato, månedlig_pris, kilometer_graense, kontrakt_periode, status))
+            INSERT INTO subscriptions (kunde_id, bil_id, start_dato, slut_dato, månedlig_pris, kilometer_graense, kontrakt_periode, status)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, (kunde_id, bil_id, start_dato, slut_dato, månedlig_pris, kilometer_graense, kontrakt_periode, status))
             conn.commit()
 
             abonnement_id = cursor.lastrowid
