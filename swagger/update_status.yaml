@@ -1,0 +1,68 @@
+tags:
+  - Subscriptions
+summary: Update subscription status
+description: Update the status of a subscription (e.g., Active, Inactive, Terminated).
+parameters:
+  - name: abonnement_id
+    in: path
+    required: true
+    schema:
+      type: integer
+      example: 1
+    description: Unique ID of the subscription to update.
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          status:
+            type: string
+            enum:
+              - Active
+              - Inactive
+              - Terminated
+            example: Terminated
+            description: New status for the subscription.
+responses:
+  200:
+    description: Subscription status updated successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Status updated
+  400:
+    description: Invalid input or status
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: Invalid status
+  404:
+    description: Subscription not found
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: Subscription not found
+  500:
+    description: Server error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: An error occurred

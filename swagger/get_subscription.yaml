@@ -1,0 +1,67 @@
+tags:
+  - Subscriptions
+summary: Retrieve subscription details
+description: Fetch the details of a subscription by its unique ID.
+parameters:
+  - name: abonnement_id
+    in: path
+    required: true
+    schema:
+      type: integer
+      example: 1
+    description: Unique ID of the subscription to retrieve.
+responses:
+  200:
+    description: Subscription details retrieved successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            abonnement_id:
+              type: integer
+              example: 1
+            kunde_id:
+              type: integer
+              example: 123
+            start_dato:
+              type: string
+              format: date
+              example: "2024-01-01"
+            slut_dato:
+              type: string
+              format: date
+              example: "2024-12-31"
+            månedlig_pris:
+              type: number
+              format: float
+              example: 499.99
+            kilometer_graense:
+              type: integer
+              example: 1500
+            kontrakt_periode:
+              type: string
+              example: "12 months"
+            status:
+              type: string
+              example: "Active"
+  404:
+    description: Subscription not found
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: Subscription not found
+  500:
+    description: Server error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: An error occurred

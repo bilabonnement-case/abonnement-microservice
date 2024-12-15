@@ -1,0 +1,39 @@
+tags:
+  - General
+summary: Service Information
+description: Provides general information about the Abonnement-Service and its available endpoints.
+responses:
+  200:
+    description: Successfully retrieved service information
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            service:
+              type: string
+              example: "Abonnement-Service"
+            available_endpoints:
+              type: array
+              items:
+                type: object
+                properties:
+                  path:
+                    type: string
+                    example: "/create_subscription"
+                  method:
+                    type: string
+                    example: "POST"
+                  description:
+                    type: string
+                    example: "Create a new subscription"
+  500:
+    description: Server error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: "An error occurred while retrieving service information"

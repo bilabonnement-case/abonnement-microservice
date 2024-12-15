@@ -1,0 +1,31 @@
+tags:
+  - Subscriptions
+summary: Generate subscription report
+description: Provides a summary of subscriptions, including counts for active, inactive, and terminated subscriptions.
+responses:
+  200:
+    description: Subscription report generated successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            ActiveSubscriptions:
+              type: integer
+              example: 10
+            InactiveSubscriptions:
+              type: integer
+              example: 5
+            TerminatedSubscriptions:
+              type: integer
+              example: 2
+  500:
+    description: Server error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: An error occurred

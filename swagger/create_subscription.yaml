@@ -1,0 +1,72 @@
+tags:
+  - Subscriptions
+summary: Create a new subscription
+description: Endpoint to create a new subscription for a customer.
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          kunde_id:
+            type: integer
+            example: 123
+            description: Customer ID (foreign key from customer database)
+          start_dato:
+            type: string
+            format: date
+            example: "2024-01-01"
+            description: Start date of the subscription.
+          slut_dato:
+            type: string
+            format: date
+            example: "2024-12-31"
+            description: End date of the subscription.
+          månedlig_pris:
+            type: number
+            format: float
+            example: 499.99
+            description: Monthly price of the subscription.
+          kilometer_graense:
+            type: integer
+            example: 1500
+            description: Monthly mileage limit.
+          kontrakt_periode:
+            type: string
+            example: "12 months"
+            description: Contract period.
+responses:
+  201:
+    description: Subscription created successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Subscription created
+            subscription_id:
+              type: integer
+              example: 1
+  400:
+    description: Missing or invalid input
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: Missing required fields
+  500:
+    description: Server error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: An error occurred
