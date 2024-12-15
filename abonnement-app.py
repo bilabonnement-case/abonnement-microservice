@@ -167,6 +167,25 @@ def report():
 
     return jsonify(report_data)
 
+@app.route('/delete_subscription/<int:abonnement_id>', methods=['DELETE'])
+@swag_from('swagger/delete_subscription.yaml')
+def delete_subscription(abonnement_id):
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            result = cursor.execute("DELETE FROM subscriptions WHERE abonnement_id = ?", (abonnement_id,))
+            conn.commit()
+
+            if result.rowcount == 0:
+                return jsonify({"error": "Subscription not found"}), 404
+
+        return jsonify({"message": f"Subscription with ID {abonnement_id} deleted"}), 200
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"error": "An error occurred"}), 500
+
+
 
 if __name__ == '__main__':
     app.run(debug=bool(int(os.getenv('FLASK_DEBUG', 0))), host='0.0.0.0', port=5002)

@@ -1,0 +1,46 @@
+tags:
+  - Subscriptions
+paths:
+  /delete_subscription/{abonnement_id}:
+    delete:
+      summary: Delete subscription by ID
+      description: Deletes a subscription from the database using the provided abonnement_id.
+      parameters:
+        - name: abonnement_id
+          in: path
+          required: true
+          description: ID of the subscription to delete
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Subscription successfully deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Subscription with ID 1 deleted"
+        '404':
+          description: Subscription not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Subscription not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "An error occurred"
