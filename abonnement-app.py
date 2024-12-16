@@ -19,7 +19,7 @@ app.config['SWAGGER'] = {
 swagger = Swagger(app)
 
 # Database Opsætning
-DATABASE = "abonnement-database.db"
+DATABASE = "/app/data/abonnement-database.db"
 
 
 def init_db():
