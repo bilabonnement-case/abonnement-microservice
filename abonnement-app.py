@@ -122,7 +122,7 @@ def get_subscription(abonnement_id):
     return jsonify(dict(subscription)), 200
 
 
-@app.route('/update_status/<int:abonnement_id>', methods=['PUT'])
+@app.route('/update_status/<int:abonnement_id>', methods=['PATCH'])
 @swag_from('swagger/update_status.yaml')
 def update_status(abonnement_id):
     try:
