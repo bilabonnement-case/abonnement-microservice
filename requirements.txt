@@ -3,3 +3,4 @@ werkzeug>=3.0.6
 Flask-JWT-Extended==4.4.0
 flasgger==0.9.5
 python-dotenv==0.21.0
+flask-cors==3.0.10
