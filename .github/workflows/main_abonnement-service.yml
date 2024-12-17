@@ -20,15 +20,15 @@ jobs:
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}  # Din Docker Hub brugernavn fra secrets
-        password: ${{ secrets.DOCKER_TOKEN }}     # Din Docker Hub token fra secrets
+        username: ${{ secrets.DOCKER_USERNAME }}  # Din Docker Hub brugernavn
+        password: ${{ secrets.DOCKER_TOKEN }}     # Din Docker Hub token
 
     - name: Build and push container image to Docker Hub
       uses: docker/build-push-action@v3
       with:
         push: true
-        context: ./abonnement-service         # Bygger fra abonnement-service mappen
-        file: ./abonnement-service/Dockerfile # Dockerfile i den korrekte placering
+        context: .                  # Root folder som build context
+        file: ./Dockerfile          # Dockerfile er i root folderen
         tags: ${{ secrets.DOCKER_USERNAME }}/abonnement-service:${{ github.sha }}
 
   deploy:
