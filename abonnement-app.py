@@ -8,7 +8,7 @@ from flask_cors import CORS
 
 # Load environment variables
 load_dotenv()
-
+#he
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "https://api-gateway.azurewebsites.net"}})
 
